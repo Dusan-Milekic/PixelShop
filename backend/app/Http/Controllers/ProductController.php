@@ -14,6 +14,7 @@ class ProductController extends Controller
             'description' => 'required|max:255',
             'price' => 'required|numeric',
             'stock_quantity' => 'required|integer',
+            'category' => 'required|string',
             'image_url' => 'required|url'
         ]);
 
