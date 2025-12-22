@@ -1,5 +1,5 @@
 import { BrowserRouter,Link ,Routes,Route} from "react-router-dom";
-import Products from "./components/admin/products";
+import Products from "./components/admin/Products"
 export default function AdminPanel() {
   return (
     <>
