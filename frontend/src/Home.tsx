@@ -65,11 +65,11 @@ export default function Home() {
                                 </button>
                             </div>
                         </div>
-                        <div className="flex-1">
-                            <div className="bg-slate-800 rounded-lg p-8 h-64 flex items-center justify-center">
-                                <p className="text-slate-400 text-center">Product Showcase Image</p>
-                            </div>
-                        </div>
+                   <div className="flex-1">
+                    <div id="bgimage" className="bg-slate-800 rounded-lg p-8 h-64 flex items-center justify-center">
+                        
+                    </div>
+</div>
                     </div>
                 </div>
             </section>
