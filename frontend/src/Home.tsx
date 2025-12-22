@@ -1,5 +1,6 @@
 import Navigation from "./components/user/Navigation"
 import { useEffect } from "react"
+import L from "leaflet";
 
 export default function Home() {
     useEffect(() => {
