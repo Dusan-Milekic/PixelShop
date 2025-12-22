@@ -3,7 +3,7 @@ import Products from "./components/admin/Products"
 export default function AdminPanel() {
   return (
     <>
-    <BrowserRouter>
+    
       <div className="bg-gray-100 p-4 rounded-lg shadow-md flex justify-between items-center">
         <h1>Admin Panel</h1>
         <nav className="flex px-2 gap-10">
@@ -14,10 +14,7 @@ export default function AdminPanel() {
         </nav>
       </div>
 
-      <Routes>
-        <Route path="/products" element={<Products/>} />
-      </Routes>
-    </BrowserRouter>
+
     </>
     
   )
