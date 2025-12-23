@@ -1,6 +1,7 @@
-import Navigation from "./components/user/Navigation"
-import { useEffect } from "react"
+import { useEffect } from "react";
 import L from "leaflet";
+import { Truck, Shield, Star, ArrowRight } from 'lucide-react';
+import Navigation from "./components/user/Navigation";
 
 export default function Home() {
     useEffect(() => {
@@ -12,7 +13,6 @@ export default function Home() {
         script.async = true;
         
         script.onload = () => {
-       
             const map = L.map('map').setView([44.0165, 21.0059], 7); // Coordinates Serbia
             
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -30,7 +30,9 @@ export default function Home() {
         
         // Cleanup
         return () => {
-            document.body.removeChild(script);
+            if (document.body.contains(script)) {
+                document.body.removeChild(script);
+            }
         };
     }, []);
 
@@ -43,159 +45,135 @@ export default function Home() {
                 integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
                 crossOrigin="" 
             />
-            
-            <Navigation />
-            
+            <Navigation/>
             {/* Hero Section */}
-            <section className="bg-slate-900 text-white py-20 px-4">
-                <div className="max-w-6xl mx-auto">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-12">
-                        <div className="flex-1">
-                            <h1 className="text-5xl font-bold mb-4">
-                                Welcome to PixelShop
-                            </h1>
-                            <p className="text-xl text-slate-300 mb-6">
-                                Discover amazing products at prices you'll love
-                            </p>
-                            <div className="flex gap-4">
-                                <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
-                                    Browse Products
-                                </button>
-                                <button className="border border-slate-600 hover:bg-slate-800 text-white px-6 py-3 rounded-lg font-medium transition-colors">
-                                    Learn More
-                                </button>
-                            </div>
-                        </div>
-                   <div className="flex-1">
-                    <div id="bgimage" className="bg-slate-800 rounded-lg p-8 h-64 flex items-center justify-center">
-                        
-                    </div>
-</div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Features */}
-            <section className="py-16 px-4 bg-white">
-                <div className="max-w-6xl mx-auto">
-                    <div className="grid md:grid-cols-3 gap-8">
-                        <div className="text-center">
-                            <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <span className="text-2xl">🚚</span>
-                            </div>
-                            <h3 className="text-xl font-semibold mb-2">Fast Delivery</h3>
-                            <p className="text-slate-600">Get your orders delivered quickly and safely</p>
-                        </div>
-                        <div className="text-center">
-                            <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <span className="text-2xl">💳</span>
-                            </div>
-                            <h3 className="text-xl font-semibold mb-2">Secure Payment</h3>
-                            <p className="text-slate-600">Shop with confidence using secure checkout</p>
-                        </div>
-                        <div className="text-center">
-                            <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <span className="text-2xl">⭐</span>
-                            </div>
-                            <h3 className="text-xl font-semibold mb-2">Quality Products</h3>
-                            <p className="text-slate-600">Curated selection of top-rated items</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Sign In Section */}
-            <section className="py-16 px-4 bg-slate-50">
-                <div className="max-w-md mx-auto">
-                    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-                        <h2 className="text-2xl font-bold mb-2">Welcome Back</h2>
-                        <p className="text-slate-600 mb-6">Sign in to continue shopping</p>
-                        
-                        <form className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">
-                                    Email Address
-                                </label>
-                                <input 
-                                    type="email" 
-                                    placeholder="your@email.com"
-                                    className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-                                />
-                            </div>
-                            
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">
-                                    Password
-                                </label>
-                                <input 
-                                    type="password" 
-                                    placeholder="Enter your password"
-                                    className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-                                />
-                            </div>
-                            
-                            <button 
-                                type="submit"
-                                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg font-medium transition-colors"
+            <section className="relative bg-neutral-800 py-32">
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent"></div>
+                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center">
+                        <h1 className="text-6xl md:text-7xl font-bold text-white mb-8">
+                            Welcome to PixelShop
+                        </h1>
+                        <p className="text-2xl text-neutral-400 mb-12 max-w-3xl mx-auto">
+                            Discover amazing products at prices you'll love. Your next favorite purchase is just a click away.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                            <a
+                                href="/products"
+                                className="inline-flex items-center justify-center bg-indigo-600 text-white px-10 py-4 rounded-lg font-semibold text-lg hover:bg-indigo-700 transition-colors duration-300 shadow-lg shadow-indigo-500/20"
                             >
-                                Sign In
-                            </button>
-                        </form>
-                        
-                        <div className="mt-6 text-center">
-                            <a href="#" className="text-sm text-indigo-600 hover:text-indigo-700">
-                                Forgot password?
+                                Browse Products
+                                <ArrowRight className="ml-2 w-5 h-5" />
+                            </a>
+                            <a
+                                href="/about"
+                                className="inline-flex items-center justify-center border-2 border-neutral-600 text-white px-10 py-4 rounded-lg font-semibold text-lg hover:bg-neutral-700 hover:border-neutral-500 transition-all duration-300"
+                            >
+                                Learn More
                             </a>
                         </div>
                     </div>
                 </div>
             </section>
 
+            {/* Features Section */}
+            <section className="py-24 bg-neutral-900">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                            Why Choose PixelShop?
+                        </h2>
+                        <p className="text-xl text-neutral-400 max-w-3xl mx-auto">
+                            We provide exceptional service and quality products to make your shopping experience unforgettable
+                        </p>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="group bg-neutral-800 p-10 rounded-xl border border-neutral-700 hover:border-indigo-500 transition-all duration-300 text-center">
+                            <div className="flex justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <Truck className="w-16 h-16 text-indigo-400" />
+                            </div>
+                            <h3 className="text-2xl font-bold text-white mb-4">Fast Delivery</h3>
+                            <p className="text-neutral-400 leading-relaxed">
+                                Get your orders delivered quickly and safely within 24-48 hours
+                            </p>
+                        </div>
+                        
+                        <div className="group bg-neutral-800 p-10 rounded-xl border border-neutral-700 hover:border-indigo-500 transition-all duration-300 text-center">
+                            <div className="flex justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <Shield className="w-16 h-16 text-indigo-400" />
+                            </div>
+                            <h3 className="text-2xl font-bold text-white mb-4">Secure Payment</h3>
+                            <p className="text-neutral-400 leading-relaxed">
+                                Shop with confidence using our secure and encrypted checkout system
+                            </p>
+                        </div>
+                        
+                        <div className="group bg-neutral-800 p-10 rounded-xl border border-neutral-700 hover:border-indigo-500 transition-all duration-300 text-center">
+                            <div className="flex justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <Star className="w-16 h-16 text-indigo-400" />
+                            </div>
+                            <h3 className="text-2xl font-bold text-white mb-4">Quality Products</h3>
+                            <p className="text-neutral-400 leading-relaxed">
+                                Curated selection of top-rated items from trusted brands
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* CTA Section */}
-            <section className="py-16 px-4 bg-indigo-600 text-white">
-                <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-3xl font-bold mb-4">
+            <section className="py-24 bg-neutral-800">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
                         Ready to Start Shopping?
                     </h2>
-                    <p className="text-xl text-indigo-100 mb-8">
-                        Join thousands of happy customers today
+                    <p className="text-xl text-neutral-400 mb-10 max-w-3xl mx-auto">
+                        Join thousands of happy customers today and discover products you'll love
                     </p>
-                    <button className="bg-white text-indigo-600 hover:bg-indigo-50 px-8 py-3 rounded-lg font-medium transition-colors">
+                    <a
+                        href="/account"
+                        className="inline-block bg-indigo-600 text-white px-12 py-5 rounded-lg font-semibold text-lg hover:bg-indigo-700 transition-colors duration-300 shadow-lg shadow-indigo-500/20"
+                    >
                         Create Free Account
-                    </button>
+                    </a>
                 </div>
             </section>
 
             {/* Location Section with Map */}
-            <section className="py-16 px-4 bg-white">
-                <div className="max-w-6xl mx-auto">
-                    <h2 className="text-3xl font-bold text-center mb-4">Our Location</h2>
-                    <p className="text-xl text-slate-600 text-center mb-8">
-                        📍 Based in Serbia
-                    </p>
-                    <div className="bg-slate-100 rounded-lg border border-slate-200 p-4 h-96">
+            <section className="py-24 bg-neutral-900">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-12">
+                        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                            Our Location
+                        </h2>
+                        <p className="text-xl text-neutral-400">
+                            📍 Based in Serbia
+                        </p>
+                    </div>
+                    <div className="bg-neutral-800 rounded-xl border border-neutral-700 p-4 h-96">
                         <div id="map" className="w-full h-full rounded-lg"></div>
                     </div>
                 </div>
             </section>
 
-            {/* Contact & Info */}
-            <section className="py-16 px-4 bg-slate-50">
-                <div className="max-w-6xl mx-auto">
-                    <div className="grid md:grid-cols-3 gap-8">
+            {/* Contact & Info Section */}
+            <section className="py-24 bg-neutral-800">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                         {/* Contact */}
                         <div>
-                            <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
-                            <div className="space-y-3 text-slate-600">
+                            <h3 className="text-2xl font-bold text-white mb-6">Contact Us</h3>
+                            <div className="space-y-4 text-neutral-400">
                                 <p>
-                                    <span className="font-medium text-slate-900">Phone:</span><br/>
-                                    <a href="tel:+381612341748" className="hover:text-indigo-600">
+                                    <span className="font-semibold text-white block mb-1">Phone:</span>
+                                    <a href="tel:+381612341748" className="hover:text-indigo-400 transition-colors duration-300">
                                         +381 61 234-1748
                                     </a>
                                 </p>
                                 <p>
-                                    <span className="font-medium text-slate-900">Email:</span><br/>
-                                    <a href="mailto:dusanmilekic0511@gmail.com" className="hover:text-indigo-600 break-all">
+                                    <span className="font-semibold text-white block mb-1">Email:</span>
+                                    <a href="mailto:dusanmilekic0511@gmail.com" className="hover:text-indigo-400 transition-colors duration-300 break-all">
                                         dusanmilekic0511@gmail.com
                                     </a>
                                 </p>
@@ -204,23 +182,32 @@ export default function Home() {
                         
                         {/* Quick Links */}
                         <div>
-                            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-                            <div className="space-y-2">
-                                <a href="#products" className="block text-slate-600 hover:text-indigo-600">Products</a>
-                                <a href="#delivery" className="block text-slate-600 hover:text-indigo-600">Delivery Info</a>
-                                <a href="#contact" className="block text-slate-600 hover:text-indigo-600">Contact</a>
+                            <h3 className="text-2xl font-bold text-white mb-6">Quick Links</h3>
+                            <div className="space-y-3">
+                                <a href="/products" className="block text-neutral-400 hover:text-indigo-400 transition-colors duration-300">
+                                    Products
+                                </a>
+                                <a href="/delivery" className="block text-neutral-400 hover:text-indigo-400 transition-colors duration-300">
+                                    Delivery Info
+                                </a>
+                                <a href="/contact" className="block text-neutral-400 hover:text-indigo-400 transition-colors duration-300">
+                                    Contact
+                                </a>
+                                <a href="/about" className="block text-neutral-400 hover:text-indigo-400 transition-colors duration-300">
+                                    About Us
+                                </a>
                             </div>
                         </div>
                         
                         {/* Social */}
                         <div>
-                            <h3 className="text-lg font-semibold mb-4">Connect</h3>
-                            <div className="space-y-2">
+                            <h3 className="text-2xl font-bold text-white mb-6">Connect</h3>
+                            <div className="space-y-3">
                                 <a 
                                     href="https://rs.linkedin.com/in/dusan-milekic/en"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="block text-slate-600 hover:text-indigo-600"
+                                    className="block text-neutral-400 hover:text-indigo-400 transition-colors duration-300"
                                 >
                                     LinkedIn →
                                 </a>
@@ -228,7 +215,7 @@ export default function Home() {
                                     href="https://github.com/Dusan-Milekic"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="block text-slate-600 hover:text-indigo-600"
+                                    className="block text-neutral-400 hover:text-indigo-400 transition-colors duration-300"
                                 >
                                     GitHub →
                                 </a>
@@ -239,12 +226,12 @@ export default function Home() {
             </section>
 
             {/* Footer */}
-            <footer className="bg-slate-900 text-slate-400 py-8 px-4">
-                <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p>© 2024 PixelShop. All rights reserved.</p>
-                    <p className="text-slate-500">Developed by Dušan Milekić</p>
+            <footer className="bg-neutral-900 border-t border-neutral-800 py-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p className="text-neutral-500">© 2024 PixelShop. All rights reserved.</p>
+                    <p className="text-neutral-600">Developed by Dušan Milekić</p>
                 </div>
             </footer>
         </>
-    )
+    );
 }
