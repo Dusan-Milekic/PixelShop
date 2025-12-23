@@ -7,6 +7,7 @@ import Products from './components/admin/Products'
 import Location from './Location'
 import { BrowserRouter,Routes,Route } from 'react-router-dom'
 import Account from './Account'
+import ProductPage from './ProductPage'
 function App() {
 
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/contact" element={<Contact/>} />
         <Route path="/location" element={<Location/>} />
         <Route path="/account" element={<Account/>} />
+         <Route path="/products" element={<ProductPage/>} />
       </Routes>
     </BrowserRouter>
       

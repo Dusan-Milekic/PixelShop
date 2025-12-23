@@ -359,7 +359,7 @@ export default function Products() {
                           {product.category}
                         </span>
                       </td>
-                      <td className="border border-gray-300 px-4 py-3 font-semibold text-green-600">{product.price} RSD</td>
+                      <td className="border border-gray-300 px-4 py-3 font-semibold text-green-600">${product.price}</td>
                       <td className="border border-gray-300 px-4 py-3 text-center">
                         <span className={`px-2 py-1 rounded text-sm ${
                           product.stock_quantity > 10 ? 'bg-green-100 text-green-800' : 
