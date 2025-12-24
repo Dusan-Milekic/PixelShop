@@ -34,10 +34,10 @@ export default function Store() {
   };
 
   // Filter products by category
-  const monitors = products.filter(p => p.category === 'monitors');
-  const pcs = products.filter(p => p.category === 'pcs');
-  const headphones = products.filter(p => p.category === 'headphones');
-  const tvs = products.filter(p => p.category === 'tvs');
+  const monitors = products.filter(p => p.category === 'monitors').slice(0,4);
+  const pcs = products.filter(p => p.category === 'pcs').slice(0,4);
+  const headphones = products.filter(p => p.category === 'headphones').slice(0,4);
+  const tvs = products.filter(p => p.category === 'tvs').slice(0,4);
 
   // Best deals under $200
   const bestDeals = products.filter(p => p.price <= 200 && p.stock_quantity > 0);

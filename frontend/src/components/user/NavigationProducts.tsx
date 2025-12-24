@@ -1,15 +1,22 @@
 import { useState } from 'react';
-import { Menu, X, ChevronDown, Monitor, Cpu, Headphones, Tv, User } from 'lucide-react';
+import { Menu, X, ChevronDown, Monitor, Cpu, Headphones, Tv, User, ShoppingCart } from 'lucide-react';
+import { useCartStore } from '../../store/cartStore';
 
-export default function Navigation() {
+export default function NavigationProducts() {
     const [isOpen, setIsOpen] = useState(false);
     const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+    
+    // Prati cart array direktno - ovo će automatski trigerovati re-render kad se cart promeni
+    const cart = useCartStore((state) => state.cart);
+    
+    // Računaj total items iz cart array-a
+    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
 
     const categories = [
-        { name: 'Monitors', icon: <Monitor className="w-4 h-4" />, href: '/products#monitors' },
-        { name: 'Gaming PCs', icon: <Cpu className="w-4 h-4" />, href: '/products#pcs' },
-        { name: 'Headphones', icon: <Headphones className="w-4 h-4" />, href: '/products#headphones' },
-        { name: 'TVs', icon: <Tv className="w-4 h-4" />, href: '/products#tvs' },
+        { name: 'Monitors', icon: <Monitor className="w-4 h-4" />, href: '/monitors' },
+        { name: 'Gaming PCs', icon: <Cpu className="w-4 h-4" />, href: '/pc' },
+        { name: 'Headphones', icon: <Headphones className="w-4 h-4" />, href: '/headphones' },
+        { name: 'TVs', icon: <Tv className="w-4 h-4" />, href: '/tv' },
     ];
 
     return (
@@ -54,13 +61,25 @@ export default function Navigation() {
                                     ))}
                                     <div className="border-t border-neutral-700 my-2"></div>
                                     <a
-                                        href="/products"
+                                        href="/allproducts"
                                         className="flex items-center gap-3 px-4 py-3 text-indigo-400 hover:text-indigo-300 hover:bg-neutral-700 transition-colors duration-300 font-semibold"
                                     >
                                         View All Products →
                                     </a>
                                 </div>
                             )}
+                        </li>
+
+                        {/* Cart */}
+                        <li>
+                            <a href="/cart" className="relative flex items-center gap-2 px-4 py-2 rounded-lg text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors duration-300">
+                                <ShoppingCart className="w-5 h-5" />
+                                {totalItems > 0 && (
+                                    <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                                        {totalItems}
+                                    </span>
+                                )}
+                            </a>
                         </li>
 
                         <li>
@@ -107,6 +126,19 @@ export default function Navigation() {
                                         ))}
                                     </div>
                                 )}
+                            </li>
+
+                            {/* Mobile Cart */}
+                            <li>
+                                <a href="/cart" className="relative flex items-center gap-2 px-4 py-2 rounded-lg text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors duration-300">
+                                    <ShoppingCart className="w-5 h-5" />
+                                    Cart
+                                    {totalItems > 0 && (
+                                        <span className="ml-auto bg-indigo-600 text-white text-xs font-bold rounded-full px-2 py-1">
+                                            {totalItems}
+                                        </span>
+                                    )}
+                                </a>
                             </li>
 
                             <li>

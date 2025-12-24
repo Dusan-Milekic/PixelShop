@@ -8,6 +8,12 @@ import Location from './Location'
 import { BrowserRouter,Routes,Route } from 'react-router-dom'
 import Account from './Account'
 import ProductPage from './ProductPage'
+import AllProducts from './components/user/AllProducts'
+import Monitors from './components/user/Monitors'
+import Pc from './components/user/Pc'
+import Headphones from './components/user/Headphones'
+import Tv from './components/user/Tv'
+import CartPage from './CartPage'
 function App() {
 
 
@@ -23,7 +29,13 @@ function App() {
         <Route path="/contact" element={<Contact/>} />
         <Route path="/location" element={<Location/>} />
         <Route path="/account" element={<Account/>} />
-         <Route path="/products" element={<ProductPage/>} />
+        <Route path="/products" element={<ProductPage/>} />
+        <Route path="/allproducts" element={<AllProducts/>}/>
+        <Route path="/monitors" element={<Monitors/>}/>
+        <Route path="/pc" element={<Pc/>}/>
+        <Route path="/headphones" element={<Headphones/>}/>
+        <Route path="/tv" element={<Tv/>}/>
+        <Route path="/cart" element={<CartPage/>}/>
       </Routes>
     </BrowserRouter>
       
