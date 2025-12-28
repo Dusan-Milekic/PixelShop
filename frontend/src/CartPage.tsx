@@ -1,8 +1,10 @@
 import { useCartStore } from './store/cartStore';
+import { useNavigate } from 'react-router-dom';
 import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft } from 'lucide-react';
 import NavigationProducts from './components/user/NavigationProducts';
 
 export default function CartPage() {
+  const navigate = useNavigate();
   const cart = useCartStore((state) => state.cart);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
@@ -13,6 +15,11 @@ export default function CartPage() {
   const shipping = subtotal > 0 ? (subtotal >= 50 ? 0 : 10) : 0;
   const tax = subtotal * 0.1; // 10% tax
   const total = subtotal + shipping + tax;
+
+  // Proceed to checkout 
+  const handleProceedToCheckout = () => {
+    navigate('/payment');
+  };
 
   if (cart.length === 0) {
     return (
@@ -213,7 +220,10 @@ export default function CartPage() {
                   </div>
 
                   {/* Checkout Button */}
-                  <button className="w-full bg-indigo-600 text-white py-4 rounded-lg font-semibold hover:bg-indigo-700 transition-colors duration-300 shadow-lg shadow-indigo-500/20 mb-3">
+                  <button 
+                    className="w-full bg-indigo-600 text-white py-4 rounded-lg font-semibold hover:bg-indigo-700 transition-colors duration-300 shadow-lg shadow-indigo-500/20 mb-3" 
+                    onClick={handleProceedToCheckout}
+                  >
                     Proceed to Checkout
                   </button>
 

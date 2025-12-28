@@ -14,6 +14,7 @@ import Pc from './components/user/Pc'
 import Headphones from './components/user/Headphones'
 import Tv from './components/user/Tv'
 import CartPage from './CartPage'
+import PaymentPage from './PaymentPage'
 function App() {
 
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="/headphones" element={<Headphones/>}/>
         <Route path="/tv" element={<Tv/>}/>
         <Route path="/cart" element={<CartPage/>}/>
+        <Route path="/payment" element={<PaymentPage/>}/>
       </Routes>
     </BrowserRouter>
       
