@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import axios from 'axios';
 import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import Navigation from './components/user/Navigation';
+
 
 export default function Account() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -13,7 +15,7 @@ export default function Account() {
   });
 
   const [signUpData, setSignUpData] = useState({
-    name: '',
+    full_name: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -39,14 +41,29 @@ export default function Account() {
     // Handle sign in
   };
 
-  const handleSignUpSubmit = (e: React.FormEvent) => {
+  const handleSignUpSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     if (signUpData.password !== signUpData.confirmPassword) {
       alert('Passwords do not match!');
       return;
     }
     console.log('Sign Up:', signUpData);
-    // Handle sign up
+    try {
+      const response = await axios.post('http://localhost:8000/api/registration', {
+        full_name: signUpData.full_name,
+        email: signUpData.email,
+        password: signUpData.password
+      });
+      
+      if (response.status === 200 || response.status === 201) {
+        alert("Account created successfully");
+      }
+    } catch (error: any) {
+      console.error('Full error:', error);
+      console.error('Response data:', error.response?.data);
+      console.error('Status:', error.response?.status);
+      alert('Failed to create new account');
+    }
   };
 
   return (
@@ -177,8 +194,8 @@ export default function Account() {
                     <input
                       type="text"
                       id="signup-name"
-                      name="name"
-                      value={signUpData.name}
+                      name="full_name"
+                      value={signUpData.full_name}
                       onChange={handleSignUpChange}
                       required
                       className="w-full pl-11 pr-4 py-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white focus:outline-none focus:border-indigo-500 transition-colors duration-300"
