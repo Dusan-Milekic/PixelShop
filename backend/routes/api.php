@@ -17,3 +17,4 @@ Route::prefix('admin/products')->group(function () {
 });
 
 Route::post('/registration',[AccountController::class,'CreateNewAccount']);
+Route::post('/signin',[AccountController::class,'SignIn']);
