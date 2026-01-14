@@ -15,6 +15,6 @@ Route::prefix('admin/products')->group(function () {
     Route::post('/create', [ProductController::class, 'createNewProduct']);
     Route::get('/get', [ProductController::class, 'getAllProductsJSON']);
 });
-
+Route::get('/accounts', [AccountController::class, 'getAllAccountsJSON']);
 Route::post('/registration',[AccountController::class,'CreateNewAccount']);
 Route::post('/signin',[AccountController::class,'SignIn']);

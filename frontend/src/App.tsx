@@ -15,6 +15,7 @@ import Headphones from './components/user/Headphones'
 import Tv from './components/user/Tv'
 import CartPage from './CartPage'
 import PaymentPage from './PaymentPage'
+import Users from './components/admin/Users'
 function App() {
 
 
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/admin" element={<AdminPanel/>} />
         <Route path="/admin/products" element={<Products/>} />
+        <Route path="/admin/users" element={<Users/>} />
         <Route path="/" element={<Home/>} />
         <Route path="/delivery" element={<Delivery/>} />
         <Route path="/contact" element={<Contact/>} />

@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
+
+    public function getAllAccountsJSON()
+    {
+        $accounts = Account::all();
+        return response()->json($accounts);
+    }
+
     public function CreateNewAccount(Request $request)
     {
         $validated = $request->validate([
