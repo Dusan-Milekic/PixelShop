@@ -52,7 +52,7 @@ export default function SignIn({ onSignInSuccess }: SignInProps) {
       // Postavi cookies sa trajanjem od 5 dana
       setCookie('token', data.token, 5);
       setCookie('user', JSON.stringify(data.user), 5);
-      setCookie('user_id', data.user.id.toString(), 5); // DODAJ OVO
+      setCookie('user_id', data.user.id.toString(), 5); 
       
       // Pozovi callback ako postoji
       if (onSignInSuccess) {
