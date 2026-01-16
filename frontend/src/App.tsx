@@ -16,6 +16,7 @@ import Tv from './components/user/Tv'
 import CartPage from './CartPage'
 import PaymentPage from './PaymentPage'
 import Users from './components/admin/Users'
+import Orders from './components/admin/Orders'
 function App() {
 
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/admin" element={<AdminPanel/>} />
         <Route path="/admin/products" element={<Products/>} />
         <Route path="/admin/users" element={<Users/>} />
+        <Route path="/admin/orders" element={<Orders/>} />
         <Route path="/" element={<Home/>} />
         <Route path="/delivery" element={<Delivery/>} />
         <Route path="/contact" element={<Contact/>} />

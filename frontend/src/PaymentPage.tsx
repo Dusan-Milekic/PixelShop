@@ -110,24 +110,77 @@ export default function PaymentPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    if (!validateForm()) {
+  if (!validateForm()) {
+    return;
+  }
+
+  setIsProcessing(true);
+
+  try {
+    // Dobavi user_id iz cookies
+    const userId = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('user_id='))
+      ?.split('=')[1];
+
+    if (!userId) {
+      alert('User not authenticated. Please log in.');
+      setIsProcessing(false);
+      navigate('/login');
       return;
     }
 
-    setIsProcessing(true);
+    // Pripremi podatke u formatu koji backend očekuje
+    const orderData = {
+      user_id: parseInt(userId),
+      total_amount: parseFloat(total.toFixed(2)),
+      price: parseFloat(subtotal.toFixed(2)),
+      First_Name: billingInfo.firstName,
+      Last_Name: billingInfo.lastName,
+      Email: billingInfo.email,
+      Address: billingInfo.address,
+      City: billingInfo.city,
+      Zipcode: billingInfo.zipCode,
+      Country: billingInfo.country,
+      Phone_Number: billingInfo.phone,
+      Payment_Method: paymentMethod === 'card' ? 'Credit Card' : 
+                      paymentMethod === 'paypal' ? 'PayPal' : 'Crypto'
+    };
 
-    // Simulate payment processing
-    setTimeout(() => {
-      // Clear cart and redirect to success page
+    console.log('Sending order data:', orderData); // Za debugging
+
+    const response = await fetch('http://localhost:8000/api/orders/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(orderData),
+    });
+
+    const result = await response.json();
+
+    if (response.ok && result.success) {
+      // Uspešna porudžbina
       clearCart();
       setIsProcessing(false);
-      alert('Payment successful! Thank you for your purchase.');
+      alert(`Payment successful! Order #${result.data.id} created. Thank you for your purchase.`);
       navigate('/');
-    }, 2000);
-  };
+    } else {
+      // Error handling
+      setIsProcessing(false);
+      const errorMessage = result.message || 'Payment failed. Please try again.';
+      alert(errorMessage);
+      console.error('Order creation failed:', result);
+    }
+  } catch (error) {
+    setIsProcessing(false);
+    alert('Network error. Please check your connection and try again.');
+    console.error('Network error:', error);
+  }
+};
 
   const formatCardNumber = (value: string) => {
     const cleaned = value.replace(/\s/g, '');
