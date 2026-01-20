@@ -33,7 +33,7 @@ export default function SignUp({ onSignUpSuccess }: SignUpProps) {
     }
 
     try {
-      const response = await axios.post('http://localhost:8000/api/registration', {
+      const response = await axios.post('https://pixelshop-production.up.railway.app/api/registration', {
         full_name: signUpData.full_name,
         email: signUpData.email,
         password: signUpData.password

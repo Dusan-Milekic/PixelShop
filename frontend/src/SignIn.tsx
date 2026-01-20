@@ -29,7 +29,7 @@ export default function SignIn({ onSignInSuccess }: SignInProps) {
   const handleSignInSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    fetch('http://localhost:8000/api/signin', {
+    fetch('https://pixelshop-production.up.railway.app/api/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
