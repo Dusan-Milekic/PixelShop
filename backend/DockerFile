@@ -1,48 +1,43 @@
-FROM php:8.3-fpm
+FROM php:8.4-fpm
 
-# Install system dependencies
+# System dependencies
 RUN apt-get update && apt-get install -y \
     git \
-    curl \
+    unzip \
+    libzip-dev \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    zip \
-    unzip \
-    sqlite3 \
-    libsqlite3-dev
+    curl \
+    && docker-php-ext-install \
+        pdo_mysql \
+        mbstring \
+        zip \
+        exif \
+        pcntl \
+        bcmath
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql pdo_sqlite mbstring exif pcntl bcmath gd
-
-# Get Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Set working directory
-WORKDIR /app
+WORKDIR /var/www
 
-# Copy project files
+# Copy composer files first
+COPY composer.json composer.lock ./
+
+# Install dependencies (NO dev on production)
+RUN composer install --no-interaction --optimize-autoloader --no-dev
+
+# Copy application
 COPY . .
 
-# Install dependencies
-RUN composer install --optimize-autoloader --no-dev --no-interaction
+# Fix permissions
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 755 /var/www/storage /var/www/bootstrap/cache
 
-# Create .env from .env.example
-RUN cp .env.example .env
+# Expose Railway port
+EXPOSE 8080
 
-# Generate APP_KEY
-RUN php artisan key:generate --force
-
-# Create SQLite database
-RUN touch database/database.sqlite
-
-# Set permissions
-RUN chown -R www-data:www-data /app \
-    && chmod -R 755 /app/storage \
-    && chmod 664 database/database.sqlite
-
-# Expose port
-EXPOSE 8000
-
-# Run migrations and start server
-CMD php artisan migrate:fresh --seed --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
+# Start Laravel
+CMD php artisan serve --host=0.0.0.0 --port=8080
