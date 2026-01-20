@@ -1,6 +1,5 @@
-import { BrowserRouter,Link ,Routes,Route} from "react-router-dom";
-import Products from "./components/admin/Products"
-import Users from "./components/admin/Users";
+import { Link } from "react-router-dom";
+
 export default function AdminPanel() {
   return (
     <>

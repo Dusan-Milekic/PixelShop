@@ -7,7 +7,7 @@ import Profile from './ProfilePage';
 export default function Account() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState('User');
+  const [_userName, setUserName] = useState('User');
 
   // Helper funkcija za cookies
   const getCookie = (name: string) => {
@@ -95,7 +95,7 @@ export default function Account() {
             {/* Sign In Form */}
             {!isSignUp && (
               <SignIn 
-                onSignInSuccess={(token, user) => {
+                onSignInSuccess={(_token, user) => {
                   setIsLoggedIn(true);
                   setUserName(user.full_name);
                 }} 

@@ -24,7 +24,6 @@ export default function Orders() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
-    const [filterStatus, setFilterStatus] = useState('all');
 
     useEffect(() => {
         fetchOrders();

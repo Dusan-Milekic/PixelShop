@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { User, Mail, Lock, LogOut, Edit2, Save, X, Camera } from 'lucide-react';
+import { User, Mail, LogOut, Edit2, Save, X, Camera } from 'lucide-react';
 import Navigation from './components/user/Navigation';
 
 export default function Profile() {

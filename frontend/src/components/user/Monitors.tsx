@@ -18,7 +18,6 @@ interface Product {
 export default function Monitors() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const addToCart = useCartStore((state) => state.addToCart);
   const [searchQuery, setSearchQuery] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
