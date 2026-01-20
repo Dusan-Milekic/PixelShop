@@ -86,7 +86,7 @@ export default function Products() {
     setSending(true);
 
     try {
-      const response = await axios.post('https://pixelshopbackend.netlify.app/api/user/api/admin/products/create', {
+      const response = await axios.post('https://pixelshop-production.up.railway.app/api/admin/products/create', {
         name: formData.name,
         description: formData.description,
         price: parseFloat(formData.price),

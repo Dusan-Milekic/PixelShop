@@ -38,7 +38,7 @@ export default function Users() {
     const fetchUsers = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('https://pixelshopbackend.netlify.app/api/user/api/accounts');
+            const response = await axios.get('https://pixelshop-production.up.railway.app/api/user/api/accounts');
             setUsers(response.data);
         } catch (error) {
             console.error('Error fetching users:', error);
