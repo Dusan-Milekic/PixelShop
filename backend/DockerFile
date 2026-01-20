@@ -1,21 +1,43 @@
-# frontend build
-FROM node:20 AS frontend
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
+FROM php:8.4-fpm
+
+# System dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libzip-dev \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    curl \
+    && docker-php-ext-install \
+        pdo_mysql \
+        mbstring \
+        zip \
+        exif \
+        pcntl \
+        bcmath
+
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /var/www
+
+# Copy composer files first
+COPY composer.json composer.lock ./
+
+# Install dependencies (NO dev on production)
+RUN composer install --no-interaction --optimize-autoloader --no-dev
+
+# Copy application
 COPY . .
-RUN npm run build
 
-# backend
-FROM php:8.3-cli
-WORKDIR /app
+# Fix permissions
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 755 /var/www/storage /var/www/bootstrap/cache
 
-# PHP ekstenzije (ako treba)
-RUN docker-php-ext-install pdo pdo_mysql
+# Expose Railway port
+EXPOSE 8080
 
-COPY --from=frontend /app/public/build public/build
-COPY . .
-
-RUN composer install --no-interaction --optimize-autoloader
-
-CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
+# Start Laravel
+CMD php artisan serve --host=0.0.0.0 --port=8080
