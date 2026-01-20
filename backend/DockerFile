@@ -1,0 +1,21 @@
+# frontend build
+FROM node:20 AS frontend
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# backend
+FROM php:8.3-cli
+WORKDIR /app
+
+# PHP ekstenzije (ako treba)
+RUN docker-php-ext-install pdo pdo_mysql
+
+COPY --from=frontend /app/public/build public/build
+COPY . .
+
+RUN composer install --no-interaction --optimize-autoloader
+
+CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
