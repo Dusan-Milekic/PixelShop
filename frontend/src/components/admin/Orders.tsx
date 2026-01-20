@@ -32,7 +32,7 @@ export default function Orders() {
     const fetchOrders = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:8000/api/orders/get');
+            const response = await axios.get('https://pixelshopbackend.netlify.app/api/user/api/orders/get');
             setOrders(response.data);
             setError(null);
         } catch (err) {
