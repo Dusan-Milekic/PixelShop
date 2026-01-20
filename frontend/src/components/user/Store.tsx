@@ -24,7 +24,7 @@ export default function Store() {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8000/api/admin/products/get');
+      const response = await axios.get('https://pixelshop-production.up.railway.app/api/admin/products/get');
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);

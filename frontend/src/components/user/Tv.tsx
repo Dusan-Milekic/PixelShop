@@ -29,7 +29,7 @@ export default function Tv() {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8000/api/admin/products/get');
+      const response = await axios.get('https://pixelshop-production.up.railway.app/api/admin/products/get');
       // Filter samo TVs
       const tvsOnly = response.data.filter((p: Product) => p.category === 'tvs');
       setProducts(tvsOnly);

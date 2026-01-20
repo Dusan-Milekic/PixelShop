@@ -29,7 +29,7 @@ export default function Monitors() {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8000/api/admin/products/get');
+      const response = await axios.get('https://pixelshop-production.up.railway.app/api/admin/products/get');
       // Filter samo monitore
       const monitorsOnly = response.data.filter((p: Product) => p.category === 'monitors');
       setProducts(monitorsOnly);
